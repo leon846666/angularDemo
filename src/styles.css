@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.header{
+    line-height: 44px;
+    height: 44px;
+    background: #000;
+    color: #fff;
+
+    text-align: center;
+
+}

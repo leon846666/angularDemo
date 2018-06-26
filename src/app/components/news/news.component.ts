@@ -13,9 +13,20 @@ import {Observable} from "rxjs";
 })
 export class NewsComponent implements OnInit {
   public dd=[];
-  constructor(private http:Http,private jsonp:Jsonp) { }
+
+  public msg:any;
+  public name:any;
+
+  constructor(private http:Http,private jsonp:Jsonp) {
+
+    this.msg="this is a msg from news ";
+    this.name="this is a name";
+
+   }
   private headers = new Headers({'Content-Type': 'application/json'});
    //_Observable = require('node_modules/rxjs/Observable');
+
+
 
   ngOnInit() {
   }
@@ -27,7 +38,11 @@ export class NewsComponent implements OnInit {
     .map(res=>res.json())
     .subscribe(
       function(data){
+
+        // return  an array;
        console.log(data);
+       _that.dd=data.result;
+       
       //  _that.dd=JSON.parse(data['_body']);
       //  _that.dd= _that.dd['result'];
       //  console.log(_that.dd);
@@ -44,8 +59,11 @@ export class NewsComponent implements OnInit {
    .map(res=>res.json())
    .subscribe(
      function(data){
+       
+       // return  an array;
       console.log(data);
       
+   
       // _that.dd=data['_body']['result'];
       // console.log(_that.dd);
    },function(err){
