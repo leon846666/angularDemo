@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Http,Jsonp,Headers } from '@angular/http';
+//use rxjs
+import {Observable} from "rxjs";
+ 
+ import "rxjs/Rx";
 
+ 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
@@ -10,41 +15,44 @@ export class NewsComponent implements OnInit {
   public dd=[];
   constructor(private http:Http,private jsonp:Jsonp) { }
   private headers = new Headers({'Content-Type': 'application/json'});
-
+   //_Observable = require('node_modules/rxjs/Observable');
 
   ngOnInit() {
   }
 
   requestData(){
-    //alert("re")
+   
     var _that=this;
-   this.http.get( "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1")
-   .subscribe(
-     function(data){
-      console.log(data);
-      _that.dd=JSON.parse(data['_body']);
-      _that.dd= _that.dd['result'];
-      console.log(_that.dd);
-   },function(err){
-    console.log(err);
-   });
+    this.http.get( "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1")
+    .map(res=>res.json())
+    .subscribe(
+      function(data){
+       console.log(data);
+      //  _that.dd=JSON.parse(data['_body']);
+      //  _that.dd= _that.dd['result'];
+      //  console.log(_that.dd);
+    },function(err){
+     console.log(err);
+    });
   
   }
 
   requestJsonpData(){
-    //alert("re")
+    
     var _that=this;
-   this.jsonp.get( "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1")
+   this.jsonp.get( "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1&callback=JSONP_CALLBACK")
+   .map(res=>res.json())
    .subscribe(
      function(data){
       console.log(data);
       
-      _that.dd=data['_body']['result'];
-      console.log(_that.dd);
+      // _that.dd=data['_body']['result'];
+      // console.log(_that.dd);
    },function(err){
     console.log(err);
    });  
 }
+
 
 postData(){
   this.http .post(
